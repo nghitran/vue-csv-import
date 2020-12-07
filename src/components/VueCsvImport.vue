@@ -1,7 +1,7 @@
 <template>
     <div class="vue-csv-uploader">
         <div class="form">
-            <div class="vue-csv-uploader-part-one">
+            <div :class="partOneClass">
                 <div class="form-check form-group csv-import-checkbox" v-if="headers === null">
                     <slot name="hasHeaders" :headers="hasHeaders" :toggle="toggleHasHeaders">
                         <input :class="checkboxClass" type="checkbox" :id="makeId('hasHeaders')" :value="hasHeaders" @change="toggleHasHeaders">
@@ -149,8 +149,12 @@
                 default: 'form-control'
             },
             canIgnore: {
-               type: Boolean,
-               default: false,
+                type: Boolean,
+                default: false
+            },
+            partOneExtraClass: {
+                type: String,
+                default: ""
             }
         },
 
@@ -304,6 +308,9 @@
             }
         },
         computed: {
+            partOneClass() {
+                return ["vue-csv-uploader-part-one", this.partOneExtraClass].join(" ").trim();
+            },
             firstRow() {
                 return get(this, "sample.0");
             },
