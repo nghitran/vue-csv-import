@@ -20,9 +20,9 @@
                         </div>
                     </slot>
                 </div>
-                <div class="form-group">
+                <div v-if="showNextButton" class="form-group csv-load-file">
                     <slot name="next" :load="load">
-                        <button type="submit" :disabled="disabledNextButton" :class="buttonClass" @click.prevent="load">
+                        <button type="submit" :class="buttonClass" @click.prevent="load">
                             {{ loadBtnText }}
                         </button>
                     </slot>
@@ -319,6 +319,9 @@
             },
             disabledNextButton() {
                 return !this.isValidFileMimeType;
+            },
+            showNextButton() {
+                return this.isValidFileMimeType;
             }
         },
     };
